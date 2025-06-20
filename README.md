@@ -1,0 +1,1 @@
+# arbeidsgiver-sykemelding-api-katalog
