@@ -1,0 +1,15 @@
+{
+  "name": "arbeidsgiver-sykmelding-api-katalog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jesper Hustad (Utvikler i Nav)",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^11.1.0"
+  }
+}

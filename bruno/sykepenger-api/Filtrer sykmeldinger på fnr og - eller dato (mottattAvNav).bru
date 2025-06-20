@@ -1,0 +1,23 @@
+meta {
+  name: Filtrer sykmeldinger på fnr og / eller dato (mottattAvNav)
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/v1/sykmeldinger
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "fnr": "",
+    "fom": "",
+    "tom": ""
+  }
+}

@@ -1,0 +1,66 @@
+vars:pre-request {
+  baseURL: https://sykepenger-api.ekstern.dev.nav.no
+}
+
+script:pre-request {
+  const jsonwebtoken = require("jsonwebtoken");
+  const axios = require("axios");
+  const { v4: uuidv4 } = require('uuid');
+  const { URLSearchParams } = require('url');
+  
+  const privateKey = bruno.getEnvironmentVariable("privateKey");
+  const clientId = bruno.getEnvironmentVariable("clientId");
+  const kid = bruno.getEnvironmentVariable("kid");
+  const orgnr = bruno.getEnvironmentVariable("orgnr");
+  
+  if (!privateKey || !clientId || !kid || !orgnr) {
+    throw new Error("Fetching bearer token failed. Missing required environment variables: privateKey, clientId, or kid");
+  }
+  
+  function generateJWT(orgnr) {
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      const payload = {
+          aud: "https://test.maskinporten.no/",
+          iss: clientId,
+          scope: "nav:helseytelser/sykepenger",
+          authorization_details: [{
+              type: "urn:altinn:systemuser",
+              systemuser_org: {
+              authority: "iso6523-actorid-upis",
+              ID: "0192:" + orgnr
+              }
+          }],
+          iat: currentTimestamp,
+          exp: currentTimestamp + 120,
+          jti: uuidv4()
+      };
+      const options = {
+          algorithm: 'RS256',
+          header: {
+              kid: kid
+          }
+      };
+  
+      return jsonwebtoken.sign(payload, privateKey, options);
+  }
+  
+  async function getMaskinportenToken(assertion){
+      const response = await axios.post(
+        'https://test.maskinporten.no/token',
+        new URLSearchParams({
+          'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+          'assertion': assertion
+        }),
+        { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
+      );
+      return response.data.access_token;
+  }
+  
+  const jwt = generateJWT("311910663")
+  const maskinportenToken = await getMaskinportenToken(jwt)
+  console.log(maskinportenToken)
+  req.setHeader('Authorization', "Bearer "+ maskinportenToken);
+  
+  
+  
+}

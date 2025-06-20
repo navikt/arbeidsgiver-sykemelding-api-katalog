@@ -1,0 +1,25 @@
+meta {
+  name: Hent forespørsler for tilhørende systembrukers orgnr, filtrer basert på request. <br> filterparametre fom og tom refererer til opprettetTid (Tidspunktet forespørselen ble opprettet av Nav)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/forespoersler
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "fnr": "",
+    "navReferanseId": "",
+    "status": "",
+    "fom": "",
+    "tom": ""
+  }
+}

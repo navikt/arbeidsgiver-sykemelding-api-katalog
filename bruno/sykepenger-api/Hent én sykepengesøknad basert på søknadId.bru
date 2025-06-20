@@ -1,0 +1,19 @@
+meta {
+  name: Hent én sykepengesøknad basert på søknadId
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/v1/sykepengesoeknad/:soeknadId
+  body: none
+  auth: bearer
+}
+
+params:path {
+  soeknadId: 
+}
+
+auth:bearer {
+  token: {{token}}
+}

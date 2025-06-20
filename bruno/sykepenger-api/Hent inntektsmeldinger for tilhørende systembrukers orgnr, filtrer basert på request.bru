@@ -1,0 +1,26 @@
+meta {
+  name: Hent inntektsmeldinger for tilhørende systembrukers orgnr, filtrer basert på request
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/v1/inntektsmeldinger
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "innsendingId": "",
+    "fnr": "",
+    "navReferanseId": "",
+    "fom": "",
+    "tom": "",
+    "status": ""
+  }
+}

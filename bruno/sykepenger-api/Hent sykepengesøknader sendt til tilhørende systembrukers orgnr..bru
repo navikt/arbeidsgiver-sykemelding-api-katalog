@@ -1,0 +1,15 @@
+meta {
+  name: Hent sykepengesøknader sendt til tilhørende systembrukers orgnr.
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/v1/sykepengesoeknader
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

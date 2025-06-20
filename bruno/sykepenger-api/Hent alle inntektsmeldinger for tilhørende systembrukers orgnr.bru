@@ -1,0 +1,15 @@
+meta {
+  name: Hent alle inntektsmeldinger for tilhørende systembrukers orgnr
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/v1/inntektsmeldinger
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

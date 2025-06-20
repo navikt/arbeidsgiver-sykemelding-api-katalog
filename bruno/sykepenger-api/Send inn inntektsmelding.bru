@@ -1,0 +1,66 @@
+meta {
+  name: Send inn inntektsmelding
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/inntektsmelding
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "navReferanseId": "",
+    "agp": {
+      "perioder": [
+        {
+          "fom": "",
+          "tom": ""
+        }
+      ],
+      "egenmeldinger": [
+        {}
+      ],
+      "redusertLoennIAgp": {
+        "beloep": "",
+        "begrunnelse": ""
+      }
+    },
+    "inntekt": {
+      "beloep": "",
+      "inntektsdato": "",
+      "naturalytelser": [
+        {
+          "naturalytelse": "",
+          "verdiBeloep": "",
+          "sluttdato": ""
+        }
+      ],
+      "endringAarsaker": [
+        {}
+      ]
+    },
+    "refusjon": {
+      "beloepPerMaaned": "",
+      "endringer": [
+        {
+          "beloep": "",
+          "startdato": ""
+        }
+      ]
+    },
+    "sykmeldtFnr": "",
+    "arbeidsgiverTlf": "",
+    "aarsakInnsending": "",
+    "avsender": {
+      "systemNavn": "",
+      "systemVersjon": ""
+    }
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: get /v1/sykmeldinger
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseUrl}}/v1/sykmeldinger
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

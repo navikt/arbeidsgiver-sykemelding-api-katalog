@@ -1,0 +1,19 @@
+meta {
+  name: Hent alle inntektsmeldinger med status
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/v1/inntektsmelding/status/:status
+  body: none
+  auth: bearer
+}
+
+params:path {
+  status: 
+}
+
+auth:bearer {
+  token: {{token}}
+}
