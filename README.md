@@ -1,5 +1,3 @@
-# arbeidsgiver-sykemelding-api-katalog
-
 
 **Liste over referanser til dette repoet:**
 
