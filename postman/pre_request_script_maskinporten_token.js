@@ -10,6 +10,13 @@ if (!privateKey || !clientId || !kid || !orgnr) {
   throw new Error("Fetching maskinporten token failed. Missing required environment variables: customerOrgnr, MASKINPORTEN_PRIVATE_KEY, MASKINPORTEN_CLIENT_ID, or MASKINPORTEN_KID");
 }
 
+const privateKeySpaces = privateKey.split(" ").length - 1
+if(privateKeySpaces !== 4) {
+    throw new Error(
+        "MASKINPORTEN_PRIVATE_KEY has " + privateKeySpaces + " space \" \" characters when it should only have 4."
+    );
+}
+
 // Generer JWT for systembruker ref: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_systembruker.html#foresp%C3%B8rsel
 function generateJWT(orgnr) {
     const currentTimestamp = Math.floor(Date.now() / 1000);
