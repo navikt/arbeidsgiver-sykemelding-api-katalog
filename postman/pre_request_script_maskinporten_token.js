@@ -1,3 +1,4 @@
+// Dette scriptet kommer fra "API - Beskrivelser og eksempler" i https://github.com/navikt/sykepenger-im-lps-api/wiki
 const jsonwebtoken = pm.require('npm:jsonwebtoken@8.5.1');
 const { v4: uuidv4 } = require('uuid');
 
