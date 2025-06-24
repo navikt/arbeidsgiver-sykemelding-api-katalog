@@ -14,8 +14,16 @@ if (!privateKey || !clientId || !kid || !orgnr) {
 const privateKeySpaces = privateKey.split(" ").length - 1
 if(privateKeySpaces !== 4) {
     throw new Error(
-        "MASKINPORTEN_PRIVATE_KEY has " + privateKeySpaces + " space \" \" characters when it should only have 4."
+        "MASKINPORTEN_PRIVATE_KEY has " + privateKeySpaces + " space \" \" characters when it should only have 4 (can occur when pasting key in field that does not support newlines)"
     );
+}
+
+async function main() {
+    const jwt = generateJWT(orgnr)
+    const maskinportenToken = await getMaskinportenToken(jwt)
+    
+    pm.environment.set("bearerToken", maskinportenToken)
+    console.log("Set Maskinporten bearerToken for systemuser with permissions for orgnr: " + orgnr)
 }
 
 // Generer JWT for systembruker ref: https://docs.digdir.no/docs/Maskinporten/maskinporten_func_systembruker.html#foresp%C3%B8rsel
@@ -67,7 +75,4 @@ async function getMaskinportenToken(assertion) {
   return res.json().access_token;
 }
 
-const jwt = generateJWT(orgnr)
-const maskinportenToken = await getMaskinportenToken(jwt)
-pm.environment.set("bearerToken", maskinportenToken)
-console.log("Set bearerToken for maskinporten systemuser with delegated permissions for orgnr: " + orgnr)
+main()
